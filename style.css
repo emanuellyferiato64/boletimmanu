@@ -1,2 +1,210 @@
+/* ============================
+   RESET BÁSICO E VARIÁVEIS
+   ============================ */
 
+/* Remove espaçamentos padrão do navegador */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Variáveis de cor — fáceis de mudar depois */
+:root {
+  --cor-fundo: #0f172a;         /* fundo escuro principal */
+  --cor-fundo-card: #1e293b;    /* fundo dos cards */
+  --cor-borda: #334155;         /* bordas sutis */
+  --cor-principal: #3b82f6;     /* azul (cor principal) */
+  --cor-secundaria: #94a3b8;    /* cinza claro (cor secundária) */
+  --cor-texto: #e2e8f0;         /* texto claro */
+  --cor-texto-suave: #94a3b8;   /* texto secundário */
+  --cor-bom: #22c55e;           /* verde para "bom desempenho" */
+  --cor-atencao: #facc15;       /* amarelo para "atenção" */
+  --cor-neutro: #64748b;        /* cinza para "não disponível" */
+}
+
+/* ============================
+   ESTILO GERAL
+   ============================ */
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* ============================
+   CABEÇALHO
+   ============================ */
+
+.cabecalho {
+  background-color: var(--cor-fundo-card);
+  border-bottom: 3px solid var(--cor-principal);
+  padding: 24px 16px;
+  text-align: center;
+}
+
+.cabecalho h1 {
+  color: var(--cor-principal);
+  font-size: 1.8rem;
+  margin-bottom: 4px;
+}
+
+.subtitulo {
+  color: var(--cor-texto-suave);
+  font-size: 0.95rem;
+}
+
+/* ============================
+   CONTEÚDO PRINCIPAL
+   ============================ */
+
+.conteudo {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
+
+/* ============================
+   CARDS DE RESUMO (em grade)
+   ============================ */
+
+.cards {
+  display: grid;
+  /* 2 colunas no celular e no computador (conforme escolhido) */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.card {
+  background-color: var(--cor-fundo-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-titulo {
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-valor {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: var(--cor-principal);
+}
+
+.card-extra {
+  font-size: 0.8rem;
+  color: var(--cor-texto-suave);
+}
+
+/* ============================
+   TABELA
+   ============================ */
+
+.tabela-area h2 {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  color: var(--cor-texto);
+}
+
+/* Container com scroll horizontal no celular */
+.tabela-container {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--cor-borda);
+}
+
+table.boletim {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px; /* garante que a tabela não fique espremida */
+  font-size: 0.9rem;
+}
+
+table.boletim thead {
+  background-color: var(--cor-principal);
+  color: #ffffff;
+}
+
+table.boletim th,
+table.boletim td {
+  padding: 10px 12px;
+  text-align: center;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+/* Primeira coluna (disciplina) alinhada à esquerda */
+table.boletim th:first-child,
+table.boletim td:first-child {
+  text-align: left;
+  white-space: nowrap;
+}
+
+table.boletim tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+table.boletim tbody tr:hover {
+  background-color: rgba(59, 130, 246, 0.12);
+}
+
+/* ============================
+   CORES DAS SITUAÇÕES
+   ============================ */
+
+.situacao-bom {
+  color: var(--cor-bom);
+  font-weight: 600;
+}
+
+.situacao-atencao {
+  color: var(--cor-atencao);
+  font-weight: 600;
+}
+
+.situacao-neutro {
+  color: var(--cor-neutro);
+  font-style: italic;
+}
+
+/* ============================
+   RODAPÉ
+   ============================ */
+
+.rodape {
+  text-align: center;
+  padding: 16px;
+  color: var(--cor-texto-suave);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--cor-borda);
+}
+
+/* ============================
+   RESPONSIVIDADE
+   ============================ */
+
+/* Em telas maiores, mantemos 2 colunas, mas cards maiores */
+@media (min-width: 700px) {
+  .cabecalho h1 { font-size: 2.2rem; }
+  .cards { gap: 16px; }
+  .card-valor { font-size: 1.9rem; }
+}
+
+/* Em telas muito pequenas, reduzimos fonte da tabela */
+@media (max-width: 480px) {
+  table.boletim { font-size: 0.8rem; }
+  table.boletim th,
+  table.boletim td { padding: 8px; }
+  .card-valor { font-size: 1.4rem; }
+}
 

@@ -1,1 +1,86 @@
 meu boletim
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Garante que o site fique bom no celular -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boletim Digital</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- CABEÇALHO -->
+  <header class="cabecalho">
+    <h1>Boletim Digital</h1>
+    <p class="subtitulo">9º Ano — Estudante Exemplo</p>
+  </header>
+
+  <main class="conteudo">
+
+    <!-- ÁREA DOS CARDS DE RESUMO -->
+    <!-- Os valores serão preenchidos pelo JavaScript -->
+    <section class="cards" id="cards">
+      <div class="card">
+        <span class="card-titulo">Média geral</span>
+        <span class="card-valor" id="card-media">—</span>
+      </div>
+
+      <div class="card">
+        <span class="card-titulo">Total de faltas</span>
+        <span class="card-valor" id="card-faltas">—</span>
+      </div>
+
+      <div class="card">
+        <span class="card-titulo">Bom desempenho</span>
+        <span class="card-valor" id="card-bom">—</span>
+      </div>
+
+      <div class="card">
+        <span class="card-titulo">Precisam de atenção</span>
+        <span class="card-valor" id="card-atencao">—</span>
+      </div>
+
+      <div class="card">
+        <span class="card-titulo">Frequência (demonstrativa)</span>
+        <span class="card-valor" id="card-frequencia">—</span>
+        <span class="card-extra" id="card-frequencia-texto">—</span>
+      </div>
+    </section>
+
+    <!-- TABELA DE NOTAS -->
+    <!-- O corpo da tabela (tbody) será preenchido pelo JavaScript -->
+    <section class="tabela-area">
+      <h2>Notas por disciplina</h2>
+      <div class="tabela-container">
+        <table class="boletim">
+          <thead>
+            <tr>
+              <th>Disciplina</th>
+              <th>1º Tri</th>
+              <th>2º Tri</th>
+              <th>3º Tri</th>
+              <th>Média</th>
+              <th>Faltas</th>
+              <th>Situação</th>
+            </tr>
+          </thead>
+          <tbody id="corpo-tabela">
+            <!-- As linhas serão criadas pelo script.js -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Rodapé simples -->
+  <footer class="rodape">
+    <p>Projeto escolar — dados fictícios para demonstração.</p>
+  </footer>
+
+  <!-- Script carregado no final para garantir que o HTML já existe -->
+  <script src="script.js"></script>
+</body>
+</html>

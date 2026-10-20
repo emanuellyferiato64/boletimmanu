@@ -21,6 +21,7 @@
   --cor-bom: #22c55e;           /* verde para "bom desempenho" */
   --cor-atencao: #facc15;       /* amarelo para "atenção" */
   --cor-neutro: #64748b;        /* cinza para "não disponível" */
+  --cor-erro: #ef4444;          /* vermelho para erros */
 }
 
 /* ============================
@@ -208,3 +209,193 @@ table.boletim tbody tr:hover {
   .card-valor { font-size: 1.4rem; }
 }
 
+/* ============================
+   NOVOS ESTILOS - ACESSO E EDIÇÃO
+   ============================ */
+
+.oculto {
+  display: none !important;
+}
+
+.card-acesso {
+  background-color: var(--cor-fundo-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 400px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.card-acesso h2 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  color: var(--cor-principal);
+}
+
+.info-estudante {
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+  margin-bottom: 20px;
+}
+
+.campo-pin {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+.campo-pin label {
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+}
+
+.campo-pin input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--cor-borda);
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-size: 1rem;
+  outline: none;
+}
+
+.campo-pin input:focus {
+  border-color: var(--cor-principal);
+}
+
+.btn-primario {
+  background-color: var(--cor-principal);
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  width: 100%;
+}
+
+.btn-primario:hover {
+  opacity: 0.9;
+}
+
+.btn-secundario {
+  background-color: transparent;
+  color: var(--cor-secundaria);
+  border: 1px solid var(--cor-borda);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secundario:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--cor-texto);
+}
+
+.mensagem-status {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+}
+
+.barra-acoes {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+/* Modal de Edição */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.modal-conteudo {
+  background-color: var(--cor-fundo-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-conteudo h3 {
+  color: var(--cor-principal);
+  margin-bottom: 8px;
+}
+
+.instrucoes-edicao {
+  font-size: 0.8rem;
+  color: var(--cor-texto-suave);
+  margin-bottom: 16px;
+}
+
+table.boletim-edicao {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+
+table.boletim-edicao th,
+table.boletim-edicao td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+table.boletim-edicao th:first-child,
+table.boletim-edicao td:first-child {
+  text-align: left;
+}
+
+table.boletim-edicao input {
+  width: 60px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid var(--cor-borda);
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+table.boletim-edicao input.campo-invalido {
+  border-color: var(--cor-erro);
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.mensagem-erro {
+  color: var(--cor-erro);
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.botoes-modal {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.botoes-modal button {
+  width: auto;
+}

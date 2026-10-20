@@ -1,5 +1,3 @@
-meu boletim
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -14,64 +12,123 @@ meu boletim
   <!-- CABEÇALHO -->
   <header class="cabecalho">
     <h1>Boletim Digital</h1>
-    <p class="subtitulo">9º Ano — Estudante Exemplo</p>
+    <p class="subtitulo">9º Ano (9C — Nº 39) — Estudante Exemplo</p>
   </header>
 
   <main class="conteudo">
 
-    <!-- ÁREA DOS CARDS DE RESUMO -->
-    <!-- Os valores serão preenchidos pelo JavaScript -->
-    <section class="cards" id="cards">
-      <div class="card">
-        <span class="card-titulo">Média geral</span>
-        <span class="card-valor" id="card-media">—</span>
+    <!-- ÁREA DE ACESSO POR PIN -->
+    <section id="area-acesso" class="card-acesso">
+      <h2>Acesso ao Boletim</h2>
+      <div class="info-estudante">
+        <p><strong>Turma:</strong> 9C | <strong>Nº de chamada:</strong> 39</p>
       </div>
-
-      <div class="card">
-        <span class="card-titulo">Total de faltas</span>
-        <span class="card-valor" id="card-faltas">—</span>
-      </div>
-
-      <div class="card">
-        <span class="card-titulo">Bom desempenho</span>
-        <span class="card-valor" id="card-bom">—</span>
-      </div>
-
-      <div class="card">
-        <span class="card-titulo">Precisam de atenção</span>
-        <span class="card-valor" id="card-atencao">—</span>
-      </div>
-
-      <div class="card">
-        <span class="card-titulo">Frequência (demonstrativa)</span>
-        <span class="card-valor" id="card-frequencia">—</span>
-        <span class="card-extra" id="card-frequencia-texto">—</span>
-      </div>
+      <form id="form-login" onsubmit="return false;">
+        <div class="campo-pin">
+          <label for="input-pin">Digite seu PIN:</label>
+          <input type="password" id="input-pin" placeholder="****" maxlength="20" required />
+        </div>
+        <button type="submit" id="btn-entrar" class="btn-primario">Entrar</button>
+      </form>
+      <div id="mensagem-status" class="mensagem-status"></div>
     </section>
 
-    <!-- TABELA DE NOTAS -->
-    <!-- O corpo da tabela (tbody) será preenchido pelo JavaScript -->
-    <section class="tabela-area">
-      <h2>Notas por disciplina</h2>
-      <div class="tabela-container">
-        <table class="boletim">
-          <thead>
-            <tr>
-              <th>Disciplina</th>
-              <th>1º Tri</th>
-              <th>2º Tri</th>
-              <th>3º Tri</th>
-              <th>Média</th>
-              <th>Faltas</th>
-              <th>Situação</th>
-            </tr>
-          </thead>
-          <tbody id="corpo-tabela">
-            <!-- As linhas serão criadas pelo script.js -->
-          </tbody>
-        </table>
+    <!-- ÁREA DO BOLETIM (OCULTA ATÉ O LOGIN) -->
+    <div id="area-boletim" class="oculto">
+
+      <!-- BARRA DE AÇÕES -->
+      <div class="barra-acoes">
+        <button id="btn-alterar" class="btn-secundario">Alterar dados</button>
       </div>
-    </section>
+
+      <!-- ÁREA DOS CARDS DE RESUMO -->
+      <!-- Os valores serão preenchidos pelo JavaScript -->
+      <section class="cards" id="cards">
+        <div class="card">
+          <span class="card-titulo">Média geral</span>
+          <span class="card-valor" id="card-media">—</span>
+        </div>
+
+        <div class="card">
+          <span class="card-titulo">Total de faltas</span>
+          <span class="card-valor" id="card-faltas">—</span>
+        </div>
+
+        <div class="card">
+          <span class="card-titulo">Bom desempenho</span>
+          <span class="card-valor" id="card-bom">—</span>
+        </div>
+
+        <div class="card">
+          <span class="card-titulo">Precisam de atenção</span>
+          <span class="card-valor" id="card-atencao">—</span>
+        </div>
+
+        <div class="card">
+          <span class="card-titulo">Frequência (demonstrativa)</span>
+          <span class="card-valor" id="card-frequencia">—</span>
+          <span class="card-extra" id="card-frequencia-texto">—</span>
+        </div>
+      </section>
+
+      <!-- TABELA DE NOTAS -->
+      <!-- O corpo da tabela (tbody) será preenchido pelo JavaScript -->
+      <section class="tabela-area">
+        <h2>Notas por disciplina</h2>
+        <div class="tabela-container">
+          <table class="boletim">
+            <thead>
+              <tr>
+                <th>Disciplina</th>
+                <th>1º Tri</th>
+                <th>2º Tri</th>
+                <th>3º Tri</th>
+                <th>Média</th>
+                <th>Faltas</th>
+                <th>Situação</th>
+              </tr>
+            </thead>
+            <tbody id="corpo-tabela">
+              <!-- As linhas serão criadas pelo script.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- MODAL DE EDIÇÃO -->
+      <div id="modal-edicao" class="modal oculto">
+        <div class="modal-conteudo">
+          <h3>Editar Notas e Faltas</h3>
+          <p class="instrucoes-edicao">Digite valores entre 0 e 10 para notas (use ponto ou vírgula) e números inteiros para faltas.</p>
+          <form id="form-edicao" onsubmit="return false;">
+            <div class="tabela-container">
+              <table class="boletim-edicao">
+                <thead>
+                  <tr>
+                    <th>Disciplina</th>
+                    <th>N1</th>
+                    <th>N2</th>
+                    <th>N3</th>
+                    <th>F1</th>
+                    <th>F2</th>
+                    <th>F3</th>
+                  </tr>
+                </thead>
+                <tbody id="corpo-edicao">
+                  <!-- Linhas preenchidas via JS -->
+                </tbody>
+              </table>
+            </div>
+            <div id="erro-edicao" class="mensagem-erro oculto"></div>
+            <div class="botoes-modal">
+              <button id="btn-cancelar" type="button" class="btn-secundario">Cancelar</button>
+              <button id="btn-salvar" type="button" class="btn-primario">Salvar alterações</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
 
   </main>
 

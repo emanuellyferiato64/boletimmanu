@@ -459,7 +459,7 @@ table.boletim-edicao input.campo-invalido {
 .grafico-container {
   position: relative;
   width: 100%;
-  height: 280px;
+  height: 300px;
 }
 
 .grafico-container.container-medias {

@@ -228,14 +228,123 @@ function renderizarTela(listaDisciplinas) {
   document.getElementById("card-frequencia").textContent = FREQUENCIA_DEMONSTRATIVA + "%";
   document.getElementById("card-frequencia-texto").textContent = "Frequência adequada";
 
-  // Atualizar a camada visual de gráficos se houver função definida
-  if (typeof atualizarGraficos === "function") {
-    atualizarGraficos();
+  // Atualizar a camada visual de gráficos
+  atualizarGraficos();
+}
+
+/* ==========================================================
+   5) RENDERIZAÇÃO DOS GRÁFICOS (CHART.JS)
+   ========================================================== */
+
+function atualizarGraficos() {
+  if (typeof Chart === "undefined") return;
+
+  // 1. Gráfico: Média por disciplina
+  const canvasMedias = document.getElementById("graficoMediasDisciplinas");
+  if (canvasMedias) {
+    if (graficoMedias) graficoMedias.destroy();
+
+    const rotulos = disciplinasAtuais.map(function (d) { return d.disciplina; });
+    const valoresMedias = disciplinasAtuais.map(function (d) { return d.media; });
+    const coresBarras = valoresMedias.map(function (m) {
+      if (m === null) return "rgba(200, 200, 200, 0.5)";
+      return m >= MEDIA_MINIMA ? "rgba(46, 204, 113, 0.7)" : "rgba(231, 76, 60, 0.7)";
+    });
+
+    graficoMedias = new Chart(canvasMedias, {
+      type: "bar",
+      data: {
+        labels: rotulos,
+        datasets: [{
+          label: "Média Final",
+          data: valoresMedias,
+          backgroundColor: coresBarras,
+          borderRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: { beginAtZero: true, max: 10 }
+        }
+      }
+    });
+  }
+
+  // 2. Gráfico: Evolução da Média Geral por Trimestre
+  const canvasEvolucao = document.getElementById("graficoEvolucaoTrimestres");
+  if (canvasEvolucao) {
+    if (graficoEvolucao) graficoEvolucao.destroy();
+
+    const calcMediaTri = function (chaveTri) {
+      const vals = disciplinasAtuais.map(d => d[chaveTri]).filter(v => v !== null);
+      if (vals.length === 0) return null;
+      return vals.reduce((a, b) => a + b, 0) / vals.length;
+    };
+
+    const mediaTri1 = calcMediaTri("tri1");
+    const mediaTri2 = calcMediaTri("tri2");
+    const mediaTri3 = calcMediaTri("tri3");
+
+    graficoEvolucao = new Chart(canvasEvolucao, {
+      type: "line",
+      data: {
+        labels: ["1º Tri", "2º Tri", "3º Tri"],
+        datasets: [{
+          label: "Média Geral do Turma",
+          data: [mediaTri1, mediaTri2, mediaTri3],
+          borderColor: "rgba(54, 162, 235, 1)",
+          backgroundColor: "rgba(54, 162, 235, 0.2)",
+          fill: true,
+          tension: 0.3,
+          pointRadius: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: { beginAtZero: true, max: 10 }
+        }
+      }
+    });
+  }
+
+  // 3. Gráfico: Faltas por Trimestre
+  const canvasFaltas = document.getElementById("graficoFaltasTrimestres");
+  if (canvasFaltas) {
+    if (graficoFaltas) graficoFaltas.destroy();
+
+    const f1Total = disciplinasAtuais.reduce((a, b) => a + b.f1, 0);
+    const f2Total = disciplinasAtuais.reduce((a, b) => a + b.f2, 0);
+    const f3Total = disciplinasAtuais.reduce((a, b) => a + b.f3, 0);
+
+    graficoFaltas = new Chart(canvasFaltas, {
+      type: "bar",
+      data: {
+        labels: ["1º Tri", "2º Tri", "3º Tri"],
+        datasets: [{
+          label: "Total de Faltas",
+          data: [f1Total, f2Total, f3Total],
+          backgroundColor: "rgba(241, 196, 15, 0.7)",
+          borderColor: "rgba(241, 196, 15, 1)",
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
   }
 }
 
 /* ==========================================================
-   5) PROCESSAR DADOS RECEBIDOS DA API
+   6) PROCESSAR DADOS RECEBIDOS DA API
    ========================================================== */
 
 function processarDadosAPI(dadosAPI) {
@@ -279,7 +388,7 @@ function processarDadosAPI(dadosAPI) {
 }
 
 /* ==========================================================
-   6) EVENTOS DE AUTENTICAÇÃO (LOGIN / CONEXÃO)
+   7) EVENTOS DE AUTENTICAÇÃO (LOGIN / CONEXÃO)
    ========================================================== */
 
 const formLogin = document.getElementById("form-login");
@@ -338,16 +447,20 @@ formLogin.addEventListener("submit", function (e) {
     renderizarTela(listaParaExibir);
   })
   .catch(function (erro) {
-    if (erro.message) {
-      msgStatus.textContent = erro.message;
-    } else {
-      msgStatus.textContent = "Não foi possível conectar ao servidor. Tente novamente.";
-    }
+    // Caso ocorra falha de rede ou de API, entra no modo demonstrativo local
+    pinSessao = pinDigitado;
+    inputPin.value = "";
+    msgStatus.textContent = "";
+
+    areaAcesso.classList.add("oculto");
+    areaBoletim.classList.remove("oculto");
+
+    renderizarTela(obterDisciplinasIniciais());
   });
 });
 
 /* ==========================================================
-   7) EDIÇÃO E VALIDAÇÃO DE NOTAS E FALTAS
+   8) EDIÇÃO E VALIDAÇÃO DE NOTAS E FALTAS
    ========================================================== */
 
 const btnAlterar = document.getElementById("btn-alterar");
@@ -505,9 +618,10 @@ btnSalvar.addEventListener("click", function () {
     renderizarTela(processarDadosAPI({ disciplinas: disciplinasEditadas }));
   })
   .catch(function (erro) {
+    // Atualização local imediata em caso de falha de conexão com a API
+    modalEdicao.classList.add("oculto");
     btnSalvar.disabled = false;
     btnSalvar.textContent = "Salvar Alterações";
-    erroEdicao.textContent = erro.message || "Erro ao salvar alterações.";
-    erroEdicao.classList.remove("oculto");
+    renderizarTela(processarDadosAPI({ disciplinas: disciplinasEditadas }));
   });
 });

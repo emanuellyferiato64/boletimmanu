@@ -1,4 +1,4 @@
-//* ==========================================================
+/* ==========================================================
    BOLETIM DIGITAL — script.js
    Dados fictícios (9º Ano) — apenas para demonstração
    ========================================================== */
@@ -228,8 +228,10 @@ function renderizarTela(listaDisciplinas) {
   document.getElementById("card-frequencia").textContent = FREQUENCIA_DEMONSTRATIVA + "%";
   document.getElementById("card-frequencia-texto").textContent = "Frequência adequada";
 
-  // Atualizar a camada visual de gráficos
-  atualizarGraficos();
+  // Atualizar a camada visual de gráficos se houver função definida
+  if (typeof atualizarGraficos === "function") {
+    atualizarGraficos();
+  }
 }
 
 /* ==========================================================
@@ -497,4 +499,15 @@ btnSalvar.addEventListener("click", function () {
     return resposta.json();
   })
   .then(function () {
-    modalEdicao.classList.add
+    modalEdicao.classList.add("oculto");
+    btnSalvar.disabled = false;
+    btnSalvar.textContent = "Salvar Alterações";
+    renderizarTela(processarDadosAPI({ disciplinas: disciplinasEditadas }));
+  })
+  .catch(function (erro) {
+    btnSalvar.disabled = false;
+    btnSalvar.textContent = "Salvar Alterações";
+    erroEdicao.textContent = erro.message || "Erro ao salvar alterações.";
+    erroEdicao.classList.remove("oculto");
+  });
+});

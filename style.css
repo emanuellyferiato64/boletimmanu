@@ -1,3 +1,4 @@
+
 /* ============================
    RESET BÁSICO E VARIÁVEIS
    ============================ */
@@ -399,3 +400,86 @@ table.boletim-edicao input.campo-invalido {
 .botoes-modal button {
   width: auto;
 }
+
+/* ============================
+   ESTILOS DA ÁREA DE GRÁFICOS
+   ============================ */
+
+.area-graficos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 32px;
+}
+
+.grafico-card {
+  background-color: var(--cor-fundo-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grafico-card h2 {
+  font-size: 1rem;
+  color: var(--cor-texto);
+  margin-bottom: 12px;
+}
+
+.cabecalho-card-faltas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.cabecalho-card-faltas h2 {
+  margin-bottom: 0;
+}
+
+.badge-perigo {
+  background-color: var(--cor-erro);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.grafico-card.card-perigo {
+  border-color: var(--cor-erro);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.25);
+}
+
+.grafico-container {
+  position: relative;
+  width: 100%;
+  height: 280px;
+}
+
+.grafico-container.container-medias {
+  height: 480px;
+}
+
+/* Responsividade dos Gráficos */
+@media (max-width: 1024px) {
+  .area-graficos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .area-graficos {
+    grid-template-columns: 1fr;
+  }
+  
+  .grafico-container.container-medias {
+    height: 520px;
+  }
+}
+

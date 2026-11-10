@@ -1,4 +1,4 @@
-/* ==========================================================
+//* ==========================================================
    BOLETIM DIGITAL — script.js
    Dados fictícios (9º Ano) — apenas para demonstração
    ========================================================== */
@@ -23,6 +23,13 @@ let pinSessao = "";
 
 // Lista atual de disciplinas em exibição/memória
 let disciplinasAtuais = [];
+
+/* ==========================================================
+   VARIÁVEIS DE INSTÂNCIA DOS GRÁFICOS (CHART.JS)
+   ========================================================== */
+let graficoMedias = null;
+let graficoEvolucao = null;
+let graficoFaltas = null;
 
 /* ==========================================================
    1) DADOS BRUTOS (fictícios, 9º Ano)
@@ -220,6 +227,9 @@ function renderizarTela(listaDisciplinas) {
 
   document.getElementById("card-frequencia").textContent = FREQUENCIA_DEMONSTRATIVA + "%";
   document.getElementById("card-frequencia-texto").textContent = "Frequência adequada";
+
+  // Atualizar a camada visual de gráficos
+  atualizarGraficos();
 }
 
 /* ==========================================================
@@ -487,34 +497,4 @@ btnSalvar.addEventListener("click", function () {
     return resposta.json();
   })
   .then(function () {
-    modalEdicao.classList.add("oculto");
-
-    const novasDisciplinas = disciplinasEditadas.map(function (d) {
-      const media = calcularMedia([d.tri1, d.tri2, d.tri3]);
-      const totalF = d.faltas[0] + d.faltas[1] + d.faltas[2];
-      return {
-        disciplina: d.disciplina,
-        tri1: d.tri1,
-        tri2: d.tri2,
-        tri3: d.tri3,
-        f1: d.faltas[0],
-        f2: d.faltas[1],
-        f3: d.faltas[2],
-        media: media,
-        faltas: totalF,
-        situacao: definirSituacao(media)
-      };
-    });
-
-    renderizarTela(novasDisciplinas);
-    alert("Dados salvos com sucesso.");
-  })
-  .catch(function (erro) {
-    erroEdicao.textContent = erro.message || "Erro ao salvar alterações.";
-    erroEdicao.classList.remove("oculto");
-  })
-  .finally(function () {
-    btnSalvar.disabled = false;
-    btnSalvar.textContent = "Salvar alterações";
-  });
-});
+    modalEdicao.classList.add

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
@@ -71,6 +71,33 @@
         </div>
       </section>
 
+      <!-- ÁREA DOS GRÁFICOS -->
+      <section class="area-graficos">
+        <article class="grafico-card">
+          <h2>Média por disciplina</h2>
+          <div class="grafico-container container-medias">
+            <canvas id="graficoMediasDisciplinas"></canvas>
+          </div>
+        </article>
+
+        <article class="grafico-card">
+          <h2>Evolução da média geral</h2>
+          <div class="grafico-container">
+            <canvas id="graficoEvolucaoTrimestres"></canvas>
+          </div>
+        </article>
+
+        <article class="grafico-card" id="card-grafico-faltas">
+          <div class="cabecalho-card-faltas">
+            <h2>Faltas por trimestre</h2>
+            <div id="estadoFaltas"></div>
+          </div>
+          <div class="grafico-container">
+            <canvas id="graficoFaltasTrimestres"></canvas>
+          </div>
+        </article>
+      </section>
+
       <!-- TABELA DE NOTAS -->
       <!-- O corpo da tabela (tbody) será preenchido pelo JavaScript -->
       <section class="tabela-area">
@@ -137,6 +164,8 @@
     <p>Projeto escolar — dados fictícios para demonstração.</p>
   </footer>
 
+  <!-- Chart.js para renderização dos gráficos -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- Script carregado no final para garantir que o HTML já existe -->
   <script src="script.js"></script>
 </body>
